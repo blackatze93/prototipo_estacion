@@ -1,0 +1,42 @@
+<style type="text/css">
+    .egt th {
+        padding: .2em .8em;
+        border: 1px solid rgba(20, 50, 90, .25);
+        background: rgba(0, 102, 255, .25);
+        text-align: center
+    }
+
+    .egt td {
+        padding: .2em .8em;
+        border: 1px solid rgba(16, 76, 167, .25);
+        background: rgba(90, 156, 255, .25);
+        text-align: left
+    }
+
+</style>
+
+{% if medidas %}
+    <table class="egt">
+    <tr>
+        <th>Fecha</th>
+        <th>Presión</th>
+        <th>Humedad</th>
+        <th>Temperatura</th>
+        <th>CO2 PPM</th>
+        <th>Ubicación</th>
+    </tr>
+
+    {% for medida in medidas %}
+        <tr>
+            <td>{{ medida.fecha }}</td>
+            <td>{{ medida.presion }}</td>
+            <td>{{ medida.humedad }}</td>
+            <td>{{ medida.temperatura }}</td>
+            <td>{{ medida.co2_ppm }}</td>
+            <td><a href="https://www.openstreetmap.org/?mlat={{ medida.latitud|stringformat:"f" }}&mlon={{ medida.longitud|stringformat:"f" }}&zoom=15" target="_blank">Ver ubicación</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No hay datos disponibles.</p>
+{% endif %}
