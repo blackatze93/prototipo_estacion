@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from mediciones.models import Medida
 
 
 def index(request):
-    return HttpResponse("Hola mundo")
+    medidas = Medida.objects.all()
+
+    return render(request, 'mediciones/index.html', {'medidas': medidas})
 
 # Create your views here.
