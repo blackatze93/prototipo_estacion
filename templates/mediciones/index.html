@@ -3,6 +3,7 @@
 {% block head_stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
 {% endblock %}
 
 {% block page_title %}Mediciones{% endblock %}
@@ -35,7 +36,7 @@
     </form>
 
     {% if medidas %}
-        <table id="table" class="table table-striped table-bordered">
+        <table id="table" class="table table-striped table-bordered dt-responsive nowrap">
             <thead>
             <tr>
                 <th>#</th>
@@ -74,6 +75,10 @@
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
+
+
 
     <script>
         $(document).ready(function () {

@@ -22,3 +22,4 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('mediciones/', include('mediciones.urls')),
 ]
+
