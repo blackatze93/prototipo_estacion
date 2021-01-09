@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from mediciones.models import Medida
 from datetime import datetime
 
 
-def index(request):
+def mediciones(request):
     if request.method == 'POST':
         dates = request.POST['dates'].split()
         min_date_str = dates[0].split('/')
