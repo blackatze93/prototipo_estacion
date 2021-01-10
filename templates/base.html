@@ -42,9 +42,19 @@
                         <a class="nav-link {% if request.path == '/mediciones/' %}active{% endif %}"
                            href="{% url 'mediciones' %}">Mediciones</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/graficos/' %}active{% endif %}"
-                           href="{% url 'graficos' %}">Gráficos</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if '/graficos/' in request.path %}active{% endif %}"
+                           href="#" id="graficos" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Gráficos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="graficos">
+                            <li><a class="dropdown-item" href="#">Presión</a></li>
+                            <li><a class="dropdown-item {% if request.path == '/graficos/temperatura/' %}active{% endif %}"
+                                   href="{% url 'temperatura' %}">Temperatura</a></li>
+                            <li><a class="dropdown-item" href="#">Humedad</a></li>
+                            <li><a class="dropdown-item" href="#">CO2 PPM</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Informes</a>

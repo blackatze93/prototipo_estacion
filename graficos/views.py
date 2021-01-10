@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from mediciones.models import Medida
-from datetime import datetime, timedelta
+from datetime import datetime
 import pandas as pd
 
 
-def graficos(request):
+def temperatura(request):
     if request.method == 'POST':
         dates = request.POST['dates'].split()
         ''' min_date definition '''
@@ -27,7 +27,7 @@ def graficos(request):
         fechas = medidas.index.to_series().astype(str).values.tolist()
         temperaturas = medidas.values.tolist()
 
-        return render(request, 'graficos/index.html', {'fechas': fechas, 'temperaturas': temperaturas, 'dates': request.POST['dates']})
+        return render(request, 'graficos/temperatura.html', {'fechas': fechas, 'temperaturas': temperaturas, 'dates': request.POST['dates']})
     else:
         df = pd.DataFrame(list(Medida.objects.all().values('fecha', 'temperatura')))
 
@@ -36,4 +36,4 @@ def graficos(request):
         fechas = medidas.index.to_series().astype(str).values.tolist()
         temperaturas = medidas.values.tolist()
 
-        return render(request, 'graficos/index.html', {'fechas': fechas, 'temperaturas': temperaturas})
+        return render(request, 'graficos/temperatura.html', {'fechas': fechas, 'temperaturas': temperaturas})
