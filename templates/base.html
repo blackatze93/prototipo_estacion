@@ -43,7 +43,8 @@
                            href="{% url 'mediciones' %}">Mediciones</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Gráficos</a>
+                        <a class="nav-link {% if request.path == '/graficos/' %}active{% endif %}"
+                           href="{% url 'graficos' %}">Gráficos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Informes</a>
