@@ -49,11 +49,14 @@
                             Gráficos
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="graficos">
-                            <li><a class="dropdown-item" href="#">Presión</a></li>
+                            <li><a class="dropdown-item {% if request.path == '/graficos/presion/' %}active{% endif %}"
+                                   href="{% url 'presion' %}">Presión</a></li>
                             <li><a class="dropdown-item {% if request.path == '/graficos/temperatura/' %}active{% endif %}"
                                    href="{% url 'temperatura' %}">Temperatura</a></li>
-                            <li><a class="dropdown-item" href="#">Humedad</a></li>
-                            <li><a class="dropdown-item" href="#">CO2 PPM</a></li>
+                            <li><a class="dropdown-item {% if request.path == '/graficos/humedad/' %}active{% endif %}"
+                                   href="{% url 'humedad' %}">Humedad</a></li>
+                            <li><a class="dropdown-item {% if request.path == '/graficos/co2/' %}active{% endif %}"
+                                   href="{% url 'co2' %}">CO2 PPM</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
