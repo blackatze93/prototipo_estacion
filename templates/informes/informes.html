@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Informe Detallado{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+    <img class="mx-auto d-block" src="https://www.udistrital.edu.co/themes/custom/versh/logo.png">
+    <h2 class="text-center">PROTOTIPO DE ESTACIÓN METEOTEOROLÓGICA</h2>
+    <h3 class="text-center">INFORME DETALLADO DE PROMEDIO DE FACTORES AMBIENTALES</h3>
+    <br>
+    <h5 class="float-end">Fecha de Consulta: {% now "d/m/Y - H:i" %}</h5>
+
+    <h5 class="">Rango de Consulta: {{ dates.min_date|date:'d/m/Y' }} - {{ dates.max_date|date:'d/m/Y' }}</h5>
+    <br>
+    <h4 class="text-center">INFORME DE GRÁFICAS</h4>
+
+    <ol>
+        <li>REPORTE DE PROMEDIO DE TEMPERATURA</li>
+        <img src="{{ img }}">
+        <li>REPORTE DE PROMEDIO DE HUMEDAD</li>
+        <li>REPORTE DE PROMEDIO DE PRESION</li>
+        <li>REPORTE DE PROMEDIO DE CO2 PPM</li>
+    </ol>
+{% endblock %}
+
+

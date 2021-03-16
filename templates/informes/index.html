@@ -2,17 +2,22 @@
 
 {% block head_stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap5.min.css   "/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
 {% endblock %}
 
-{% block page_title %}Gráficos{% endblock %}
+{% block page_title %}Mediciones{% endblock %}
 
 {% block content %}
-    <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post">
+    <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post" action="{% url 'ver_plantilla' %}">
         {% csrf_token %}
 
         <div class="col-12">
             <label for="dates">Rango de fechas</label>
         </div>
+
         <div class="col-12">
             <div class="input-group">
                 <div class="input-group-text">
@@ -35,17 +40,15 @@
         </div>
 
         <div class="col-12">
-            <button type="submit" class="btn btn-primary my-2">Consultar</button>
+            <button type="submit" class="btn btn-primary my-2">Generar</button>
         </div>
     </form>
 
-    {% if fechas %}
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto" class="border"></div>
-    {% else %}
+
         <div class="alert alert-warning text-center mt-4" role="alert">No hay datos disponibles. Pruebe con otro rango
             de fechas.
         </div>
-    {% endif %}
+
 
 {% endblock %}
 
@@ -53,9 +56,10 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -106,83 +110,12 @@
                     'Mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                 },
             });
-        });
-    </script>
 
-    <script>
-        _categories = {{fechas|safe}};
-        _values = {{temperaturas|safe}};
-
-        Highcharts.setOptions({
-            lang: {
-                loading: 'Cargando...',
-                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-                shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                exportButtonTitle: "Exportar",
-                printButtonTitle: "Importar",
-                rangeSelectorFrom: "Desde",
-                rangeSelectorTo: "Hasta",
-                rangeSelectorZoom: "Período",
-                downloadPNG: 'Descargar PNG',
-                downloadJPEG: 'Descargar JPEG',
-                downloadPDF: 'Descargar PDF',
-                downloadSVG: 'Descargar SVG',
-                downloadCSV: 'Descargar CSV',
-                downloadXLS: 'Descargar XLS',
-                printChart: 'Imprimir',
-                resetZoom: 'Reiniciar zoom',
-                resetZoomTitle: 'Reiniciar zoom',
-                thousandsSep: ",",
-                decimalPoint: '.',
-                drillUpText: '◁ Volver a {series.name}',
-                noData: 'No hay datos para mostrar',
-                viewData: 'Ver tabla de datos',
-                viewFullscreen: 'Ver en pantalla completa',
-                exitFullscreen: 'Salir de pantalla completa',
-            }
-        });
-
-        Highcharts.chart('container', {
-            chart: {
-                type: 'column'
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: 'Temperatura por fecha'
-            },
-            xAxis: {
-                categories: _categories,
-                crosshair: true,
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Temperatura'
+            $('#table').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json",
                 }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} °C</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Temperatura',
-                data: _values
-            }]
+            });
         });
-
-
     </script>
 {% endblock %}
