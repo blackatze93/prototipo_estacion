@@ -64,7 +64,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/informes/' %}active{% endif %}"
+                            <a class="nav-link {% if '/informes/' in request.path %}active{% endif %}"
                                href="{% url 'informes' %}">Informes</a>
                         </li>
                         <li class="nav-item">

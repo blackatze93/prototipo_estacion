@@ -11,7 +11,7 @@
 {% block page_title %}Mediciones{% endblock %}
 
 {% block content %}
-    <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post" action="{% url 'ver_plantilla' %}">
+    <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post" action="{% url 'generar_pdf' %}">
         {% csrf_token %}
 
         <div class="col-12">
