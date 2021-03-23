@@ -251,13 +251,15 @@ def generar_pdf(request):
 
     dates = get_dates(request.POST['dates'].split())
 
+    medidas_filtered = Medida.objects.filter(fecha__gte=dates['min_date'], fecha__lte=dates['max_date'])
+
     img_temperatura = get_img_temperatura(dates)
     img_humedad = get_img_humedad(dates)
     img_presion = get_img_presion(dates)
     img_co2 = get_img_co2(dates)
 
     context = {'dates': dates, 'img_temperatura': img_temperatura, 'img_humedad': img_humedad,
-               'img_presion': img_presion, 'img_co2': img_co2}
+               'img_presion': img_presion, 'img_co2': img_co2, 'medidas': medidas_filtered}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="informe.pdf"'
