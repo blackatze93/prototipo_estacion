@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_title %}Blog{% endblock %}
+
+{% block content %}
+    {% for post in post_list %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4 class="card-title">{{ post.titulo }}</h4>
+                <p class="card-text text-muted h6">{{ post.autor }} | {{ post.creado }}</p>
+                <p class="card-text">{{ post.contenido|slice:":280" }}...</p>
+                <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Leer más &#8702;</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
