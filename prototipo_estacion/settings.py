@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'informes',
     'blog',
     'django_summernote',
+    'gdstorage',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,9 @@ STATICFILES_DIRS = (
     BASE_DIR / "static",
 )
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media/'
+DEFAULT_FILE_STORAGE = 'gdstorage.storage.GoogleDriveStorage'
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'estacion-583cbeb66cf9.json'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+SUMMERNOTE_THEME = 'bs4'
