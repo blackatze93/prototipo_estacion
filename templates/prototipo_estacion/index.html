@@ -2,6 +2,26 @@
 
 {% block page_title %}Inicio{% endblock %}
 
+{% block head_stylesheets %}
+    <style type="text/css">
+        .video_responsive {
+            position: relative;
+            padding-bottom: 56.25%; /*panorámico*/
+            padding-top: 25px;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video_responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="video_responsive">
         <iframe src="https://www.youtube.com/embed/o3nMpm--bRg"

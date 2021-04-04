@@ -19,10 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&oo^y_&wq2vq&x_^0l*kw5(51i#wc8!b*n^b3#d6vlaq493@8='
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '&oo^y_&wq2vq&x_^0l*kw5(51i#wc8!b*n^b3#d6vlaq493@8=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = ['*']
 
@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'mediciones_prototipo',
         "CLIENT": {
-            "host": "mongodb+srv://andress:sistemas2019@cluster0.wkr6c.mongodb.net/mediciones_prototipo?retryWrites=true&w=majority",
+            "host": os.environ.get('MONGODB_HOST'),
         },
     }
 }
@@ -122,13 +122,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Add these new lines
-STATICFILES_DIRS = (
-    BASE_DIR / "static",
-)
+# Using Google Drive as File Storage System
 
 DEFAULT_FILE_STORAGE = 'gdstorage.storage.GoogleDriveStorage'
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'estacion-583cbeb66cf9.json'
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = None
+
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
