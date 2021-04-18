@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from mediciones.models import Medida
 from prototipo_estacion.utils import get_dates
+from datetime import date
 import pandas as pd
 
 
@@ -22,7 +23,7 @@ def presion(request):
 
         return render(request, 'graficos/presion.html', {'dates': request.POST['dates']})
     else:
-        df = pd.DataFrame(list(Medida.objects.all().values('fecha', 'presion')))
+        df = pd.DataFrame(list(Medida.objects.filter(fecha__gte=date.today()).values('fecha', 'presion')))
 
         medidas = df.resample('D', on='fecha').mean().to_period().fillna('null')
 
@@ -50,7 +51,7 @@ def temperatura(request):
 
         return render(request, 'graficos/temperatura.html', {'dates': request.POST['dates']})
     else:
-        df = pd.DataFrame(list(Medida.objects.all().values('fecha', 'temperatura')))
+        df = pd.DataFrame(list(Medida.objects.filter(fecha__gte=date.today()).values('fecha', 'temperatura')))
 
         medidas = df.resample('D', on='fecha').mean().to_period().fillna('null')
 
@@ -79,7 +80,7 @@ def humedad(request):
 
         return render(request, 'graficos/humedad.html', {'dates': request.POST['dates']})
     else:
-        df = pd.DataFrame(list(Medida.objects.all().values('fecha', 'humedad')))
+        df = pd.DataFrame(list(Medida.objects.filter(fecha__gte=date.today()).values('fecha', 'humedad')))
 
         medidas = df.resample('D', on='fecha').mean().to_period().fillna('null')
 
@@ -108,7 +109,7 @@ def co2(request):
 
         return render(request, 'graficos/co2.html', {'dates': request.POST['dates']})
     else:
-        df = pd.DataFrame(list(Medida.objects.all().values('fecha', 'co2_ppm')))
+        df = pd.DataFrame(list(Medida.objects.filter(fecha__gte=date.today()).values('fecha', 'co2_ppm')))
 
         medidas = df.resample('D', on='fecha').mean().to_period().fillna('null')
 
