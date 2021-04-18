@@ -174,7 +174,12 @@
             plotOptions: {
                 column: {
                     pointPadding: 0.2,
-                    borderWidth: 0
+                    borderWidth: 0,
+                    color: '#717EC3',
+                    dataLabels: {
+                        enabled: 'true',
+                        format: '{point.y:.2f} °C'
+                    }
                 }
             },
             series: [{

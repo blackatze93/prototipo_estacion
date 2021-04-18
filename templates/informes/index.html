@@ -11,7 +11,8 @@
 {% block page_title %}Mediciones{% endblock %}
 
 {% block content %}
-    <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post" action="{% url 'generar_pdf' %}">
+    <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post"
+          action="{% url 'generar_pdf' %}">
         {% csrf_token %}
 
         <div class="col-12">
@@ -44,12 +45,9 @@
         </div>
     </form>
 
-
-        <div class="alert alert-warning text-center mt-4" role="alert">No hay datos disponibles. Pruebe con otro rango
-            de fechas.
-        </div>
-
-
+    <div class="alert alert-info text-center mt-4" role="info">
+        Seleccione el rango de fechas para generar el informe.
+    </div>
 {% endblock %}
 
 {% block body_javascript %}

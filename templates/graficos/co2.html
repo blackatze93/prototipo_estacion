@@ -176,7 +176,12 @@
             plotOptions: {
                 column: {
                     pointPadding: 0.2,
-                    borderWidth: 0
+                    borderWidth: 0,
+                    color: '#EE8434',
+                    dataLabels: {
+                        enabled: 'true',
+                        format: '{point.y:.2f} PPM'
+                    }
                 }
             },
             series: [{
