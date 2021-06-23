@@ -2,9 +2,6 @@
 
 {% block head_stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css"/>
-    <style>
-
-    </style>
 {% endblock %}
 
 {% block page_title %}Informe Detallado{% endblock %}
@@ -12,7 +9,7 @@
 {% block content %}
     <div id="informe" class="text-center m-4">
         <div id="cabecera" class="h4">
-            <img height="120em" src="https://www.udistrital.edu.co/themes/custom/versh/logo.png"><br>
+            <img height="120em" src="https://www.udistrital.edu.co/themes/custom/versh/logo.png" alt="Logo UD"><br>
             PROTOTIPO DE ESTACIÓN METEOTEOROLÓGICA<br>
             INFORME DETALLADO DE PROMEDIO DE FACTORES AMBIENTALES<br><br>
             <div class="d-flex justify-content-between">
@@ -29,23 +26,23 @@
         <div id="contenido">
             <div id="graficos">
                 <h4>INFORME DE GRÁFICAS</h4><br>
-                <img width="680pt" src="{{ img_temperatura }}" class="mb-4">
-                <img width="680pt" src="{{ img_humedad }}" class="mb-4">
-                <img width="680p" src="{{ img_presion }}" class="mb-4">
-                <img width="680pt" src="{{ img_co2 }}" class="mb-4">
+                <img width="680pt" src="{{ img_temperatura }}" class="mb-4" alt="Gráfico Temperatura">
+                <img width="680pt" src="{{ img_humedad }}" class="mb-4" alt="Gráfico Humedad">
+                <img width="680p" src="{{ img_presion }}" class="mb-4" alt="Gráfico Presión">
+                <img width="680pt" src="{{ img_co2 }}" class="mb-4" alt="Gráfico CO2">
             </div>
-            <div id="tabla_datos">
+            <div id="tabla_datos" >
                 <h4>TABLA DE DATOS</h4>
-                <table class="table">
+                <table class="table" aria-label="Tabla de Datos">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Fecha</th>
-                        <th>Presión</th>
-                        <th>Humedad</th>
-                        <th>Temperatura</th>
-                        <th>CO2 PPM</th>
-                        <th>Ubicación</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Presión</th>
+                        <th scope="col">Humedad</th>
+                        <th scope="col">Temperatura</th>
+                        <th scope="col">CO2 PPM</th>
+                        <th scope="col">Ubicación</th>
                     </tr>
                     </thead>
                     <tbody>
