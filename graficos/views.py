@@ -5,6 +5,8 @@ from datetime import datetime
 import pytz
 import pandas as pd
 
+TZ = pytz.timezone('America/Bogota')
+
 
 def presion(request):
     if request.method == 'POST':
@@ -25,8 +27,8 @@ def presion(request):
         return render(request, 'graficos/presion.html', {'dates': request.POST['dates']})
     else:
         df = pd.DataFrame(list(
-            Medida.objects.filter(fecha__gte=datetime.now(pytz.timezone('America/Bogota')).date()).values('fecha',
-                                                                                                          'presion')))
+            Medida.objects.filter(fecha__gte=datetime.now(TZ).date()).values('fecha',
+                                                                             'presion')))
 
         medidas = df.resample('D', on='fecha').mean().to_period().fillna('null')
 
@@ -55,8 +57,8 @@ def temperatura(request):
         return render(request, 'graficos/temperatura.html', {'dates': request.POST['dates']})
     else:
         df = pd.DataFrame(list(
-            Medida.objects.filter(fecha__gte=datetime.now(pytz.timezone('America/Bogota')).date()).values('fecha',
-                                                                                                          'temperatura')))
+            Medida.objects.filter(fecha__gte=datetime.now(TZ).date()).values('fecha',
+                                                                             'temperatura')))
 
         medidas = df.resample('D', on='fecha').mean().to_period().fillna('null')
 
@@ -86,8 +88,8 @@ def humedad(request):
         return render(request, 'graficos/humedad.html', {'dates': request.POST['dates']})
     else:
         df = pd.DataFrame(list(
-            Medida.objects.filter(fecha__gte=datetime.now(pytz.timezone('America/Bogota')).date()).values('fecha',
-                                                                                                          'humedad')))
+            Medida.objects.filter(fecha__gte=datetime.now(TZ).date()).values('fecha',
+                                                                             'humedad')))
 
         medidas = df.resample('D', on='fecha').mean().to_period().fillna('null')
 
@@ -117,8 +119,8 @@ def co2(request):
         return render(request, 'graficos/co2.html', {'dates': request.POST['dates']})
     else:
         df = pd.DataFrame(list(
-            Medida.objects.filter(fecha__gte=datetime.now(pytz.timezone('America/Bogota')).date()).values('fecha',
-                                                                                                          'co2_ppm')))
+            Medida.objects.filter(fecha__gte=datetime.now(TZ).date()).values('fecha',
+                                                                             'co2_ppm')))
 
         medidas = df.resample('D', on='fecha').mean().to_period().fillna('null')
 

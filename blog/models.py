@@ -11,7 +11,8 @@ ESTADO = (
 class Post(models.Model):
     titulo = models.CharField(max_length=200, unique=True)
     slug = models.CharField(max_length=200, unique=True)
-    autor = models.ForeignKey(User, editable=False, null=True, blank=True, on_delete=models.CASCADE, related_name='blog_posts')
+    autor = models.ForeignKey(User, editable=False, null=True, blank=True, on_delete=models.CASCADE,
+                              related_name='blog_posts')
     actualizado = models.DateTimeField(auto_now=True)
     creado = models.DateTimeField(auto_now_add=True)
     contenido = models.TextField()

@@ -13,5 +13,6 @@ def mediciones(request):
 
         return render(request, 'mediciones/index.html', {'medidas': medidas, 'dates': request.POST['dates']})
     else:
-        medidas = Medida.objects.filter(fecha__gte=datetime.now(pytz.timezone('America/Bogota')).date()).order_by('-fecha')
+        medidas = Medida.objects.filter(fecha__gte=datetime.now(pytz.timezone('America/Bogota')).date()).order_by(
+            '-fecha')
         return render(request, 'mediciones/index.html', {'medidas': medidas})
