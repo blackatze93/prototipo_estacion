@@ -1,12 +1,10 @@
 import json
 
+from django.http import HttpResponse
 from django.shortcuts import render
 from mediciones.models import Medida
 import pandas as pd
 from prototipo_estacion.utils import get_dates
-from django.http import HttpResponse
-from django.template.loader import get_template
-from xhtml2pdf import pisa
 from requests import Session
 from urllib.parse import quote
 
@@ -246,9 +244,7 @@ def get_img_co2(dates):
         return url + response.text
 
 
-def generar_pdf(request):
-    template_path = 'informes/informes.html'
-
+def generar_informe(request):
     dates = get_dates(request.POST['dates'].split())
 
     medidas = Medida.objects.filter(fecha__gte=dates['min_date'], fecha__lte=dates['max_date']).order_by('-fecha')
@@ -260,23 +256,9 @@ def generar_pdf(request):
 
     context = {'dates': dates, 'img_temperatura': img_temperatura, 'img_humedad': img_humedad,
                'img_presion': img_presion, 'img_co2': img_co2, 'medidas': medidas}
-    # Create a Django response object, and specify content_type as pdf
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="informe.pdf"'
-    # response['Content-Disposition'] = 'inline'
-    # find the template and render it.
-    template = get_template(template_path)
-    html = template.render(context)
 
     # Check if dataframe is empty
     if img_temperatura is None:
         return render(request, 'informes/index.html', {'dates': request.POST['dates']})
 
-    # create a pdf
-    pisa_status = pisa.CreatePDF(
-        html, dest=response)
-    # if error then show some funy view
-    if pisa_status.err:
-        return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    return response
-    # return HttpResponse(request, 'informes/informes.html')
+    return render(request, 'informes/informes.html', context)

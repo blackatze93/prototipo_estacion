@@ -2,17 +2,13 @@
 
 {% block head_stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap5.min.css   "/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
 {% endblock %}
 
 {% block page_title %}Mediciones{% endblock %}
 
 {% block content %}
-    <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post"
-          action="{% url 'generar_pdf' %}">
+    <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post" target="_blank"
+          action="{% url 'generar_informe' %}">
         {% csrf_token %}
 
         <div class="col-12">
@@ -54,10 +50,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -107,12 +99,6 @@
                     'Este mes': [moment().startOf('month'), moment().endOf('month')],
                     'Mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                 },
-            });
-
-            $('#table').DataTable({
-                "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json",
-                }
             });
         });
     </script>
