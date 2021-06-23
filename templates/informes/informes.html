@@ -16,9 +16,13 @@
             PROTOTIPO DE ESTACIÓN METEOTEOROLÓGICA<br>
             INFORME DETALLADO DE PROMEDIO DE FACTORES AMBIENTALES<br><br>
             <div class="d-flex justify-content-between">
+                {% load tz %}
+                {% timezone "America/Bogota" %}
+
                 <div class="float-left">Rango de Consulta: {{ dates.min_date|date:'d/m/Y' }}
                     - {{ dates.max_date|date:'d/m/Y' }}</div>
                 <div class="float-right">Fecha de Consulta: {% now "d/m/Y - H:i" %}</div>
+                {% endtimezone %}
             </div>
         </div>
         <br>
