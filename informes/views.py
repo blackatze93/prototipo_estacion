@@ -9,6 +9,11 @@ from prototipo_estacion.utils import get_dates
 from requests import Session
 from urllib.parse import quote
 
+url_graficos = "https://export.highcharts.com/"
+argumentos_graficos = 'async=true&type=image/png&width=900&options='
+safe_graficos = '~@#$&()*!+=:;,.?/\''
+headers_graficos = {'content-type': 'application/x-www-form-urlencoded'}
+
 
 @require_GET
 def informes(request):
@@ -65,12 +70,11 @@ def get_img_temperatura(dates):
             }]
         }, separators=(',', ':'))
 
-        data = quote('async=true&type=image/png&width=900&options=' + options, safe='~@#$&()*!+=:;,.?/\'')
-        url = "https://export.highcharts.com/"
+        data = quote(argumentos_graficos + options, safe=safe_graficos)
 
-        response = session.post(url, data=data, headers={'content-type': 'application/x-www-form-urlencoded'})
+        response = session.post(url_graficos, data=data, headers=headers_graficos)
 
-        return url + response.text
+        return url_graficos + response.text
 
 
 def get_img_humedad(dates):
@@ -123,12 +127,11 @@ def get_img_humedad(dates):
             }]
         }, separators=(',', ':'))
 
-        data = quote('async=true&type=image/png&width=900&options=' + options, safe='~@#$&()*!+=:;,.?/\'')
-        url = "https://export.highcharts.com/"
+        data = quote(argumentos_graficos + options, safe=safe_graficos)
 
-        response = session.post(url, data=data, headers={'content-type': 'application/x-www-form-urlencoded'})
+        response = session.post(url_graficos, data=data, headers=headers_graficos)
 
-        return url + response.text
+        return url_graficos + response.text
 
 
 def get_img_presion(dates):
@@ -180,12 +183,11 @@ def get_img_presion(dates):
             }]
         }, separators=(',', ':'))
 
-        data = quote('async=true&type=image/png&width=900&options=' + options, safe='~@#$&()*!+=:;,.?/\'')
-        url = "https://export.highcharts.com/"
+        data = quote(argumentos_graficos + options, safe=safe_graficos)
 
-        response = session.post(url, data=data, headers={'content-type': 'application/x-www-form-urlencoded'})
+        response = session.post(url_graficos, data=data, headers=headers_graficos)
 
-        return url + response.text
+        return url_graficos + response.text
 
 
 def get_img_co2(dates):
@@ -238,12 +240,11 @@ def get_img_co2(dates):
             }]
         }, separators=(',', ':'))
 
-        data = quote('async=true&type=image/png&width=900&options=' + options, safe='~@#$&()*!+=:;,.?/\'')
-        url = "https://export.highcharts.com/"
+        data = quote(argumentos_graficos + options, safe=safe_graficos)
 
-        response = session.post(url, data=data, headers={'content-type': 'application/x-www-form-urlencoded'})
+        response = session.post(url_graficos, data=data, headers=headers_graficos)
 
-        return url + response.text
+        return url_graficos + response.text
 
 
 @require_POST

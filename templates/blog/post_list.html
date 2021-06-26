@@ -15,8 +15,7 @@
     {% endfor %}
     {% if is_paginated %}
         <div>
-            <nav>
-                <nav aria-label="Contenedor de navegación"></nav>
+            <nav aria-label="Contenedor de navegación">
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
                         <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Anterior </a>
