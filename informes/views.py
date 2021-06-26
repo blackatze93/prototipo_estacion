@@ -1,6 +1,8 @@
 import json
 
 from django.shortcuts import render
+from django.views.decorators.http import require_POST, require_GET
+
 from mediciones.models import Medida
 import pandas as pd
 from prototipo_estacion.utils import get_dates
@@ -8,6 +10,7 @@ from requests import Session
 from urllib.parse import quote
 
 
+@require_GET
 def informes(request):
     return render(request, 'informes/index.html')
 
@@ -243,6 +246,7 @@ def get_img_co2(dates):
         return url + response.text
 
 
+@require_POST
 def generar_informe(request):
     dates = get_dates(request.POST['dates'].split())
 

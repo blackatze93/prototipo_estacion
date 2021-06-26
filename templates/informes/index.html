@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 
-{% block head_stylesheets %}
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
-{% endblock %}
-
-{% block page_title %}Mediciones{% endblock %}
+{% block page_title %}Informes{% endblock %}
 
 {% block content %}
     <form class="row row-cols-lg-auto align-items-center justify-content-center mb-3" method="post" target="_blank"
@@ -47,10 +43,6 @@
 {% endblock %}
 
 {% block body_javascript %}
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.min.js"></script>
-
     <script>
         $(document).ready(function () {
             $('#dates').daterangepicker({
