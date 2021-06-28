@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block head_stylesheets %}
-    <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/printjs/print.min.css' %}"/>
 {% endblock %}
 
 {% block page_title %}Informe Detallado{% endblock %}
@@ -67,14 +69,14 @@
 {% endblock %}
 
 {% block body_javascript %}
-    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script src="{% static 'js/printjs/print.min.js' %}"></script>
 
     <script>
         $(document).ready(function () {
             printJS({
                 printable: 'informe',
                 type: 'html',
-                css: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
+                css: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css',
             })
         });
     </script>

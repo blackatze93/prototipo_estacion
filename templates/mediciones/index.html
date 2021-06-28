@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block head_stylesheets %}
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap5.min.css"/>
+    <script src=""></script>
+    <link rel="stylesheet" href="{% static 'css/datatables/dataTables.bootstrap5.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/datatables/responsive.bootstrap5.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/datatables/buttons.bootstrap5.min.css' %}"/>
 {% endblock %}
 
 {% block page_title %}Mediciones{% endblock %}
@@ -46,7 +46,8 @@
     </form>
 
     {% if medidas %}
-        <table id="tabla" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%" aria-label="DataTable">
+        <table id="tabla" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%"
+               aria-label="DataTable">
             <thead>
             <tr>
                 <th scope="col">Fecha</th>
@@ -81,16 +82,74 @@
 {% endblock %}
 
 {% block body_javascript %}
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js"></script>
+    <script src="{% static 'js/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/datatables/dataTables.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'js/datatables/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'js/datatables/responsive.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'js/datatables/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'js/datatables/buttons.bootstrap5.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"
+            integrity="sha512-oaT4uVdyleJGVHZqklOx2Bb8WhOTBW3iCXRtgk3+YutYmFx0jSs97UR3/+r1vh1Isyb3GOGjFonLbS6LFiiEVA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"
+            integrity="sha512-guWTt6syHB4T9gdPdw8W1iQUGqqricRt5VRjnjgMPpOhUhwOsxmXpk2SImqfcPgsiroK00z/loICebflVeJvqg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"
+            integrity="sha512-vv3EN6dNaQeEWDcxrKPFYSFba/kgm//IUnvLPMPadaUf5+ylZyx4cKxuc4HdBf0PPAlM7560DV63ZcolRJFPqA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'js/datatables/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'js/datatables/buttons.print.min.js' %}"></script>
+    <script src="{% static 'js/datatables/buttons.colVis.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            const table = $('#tabla').DataTable({
+                language: {
+                    "processing": "Procesando...",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "No se encontraron resultados",
+                    "emptyTable": "Ningún dato disponible en esta tabla",
+                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "infoThousands": ",",
+                    "loadingRecords": "Cargando...",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas",
+                    "buttons": {
+                        "copy": "Copiar",
+                        "colvis": "Visibilidad",
+                        "collection": "Colección",
+                        "colvisRestore": "Restaurar visibilidad",
+                        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                        "copySuccess": {
+                            "1": "Copiada 1 fila al portapapeles",
+                            "_": "Copiadas %d fila al portapapeles"
+                        },
+                        "copyTitle": "Copiar al portapapeles",
+                        "csv": "CSV",
+                        "excel": "Excel",
+                        "pageLength": {
+                            "-1": "Mostrar todas las filas",
+                            "1": "Mostrar 1 fila",
+                            "_": "Mostrar %d filas"
+                        },
+                        "pdf": "PDF",
+                        "print": "Imprimir"
+                    },
+                },
+                order: [[0, 'desc']],
+                lengthChange: false,
+                buttons: ['colvis', 'pageLength', 'excel', 'pdf', 'print']
+            });
+
+            table.buttons().container()
+                .appendTo('#tabla_wrapper .col-md-6:eq(0)');
+        });
+    </script>
 {% endblock %}
