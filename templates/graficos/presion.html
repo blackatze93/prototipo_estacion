@@ -11,7 +11,9 @@
 
         Highcharts.chart('container', {
             chart: {
-                type: 'column'
+                type: 'column',
+                marginTop: 75,
+                marginRight: 50
             },
             credits: {
                 enabled: false
@@ -39,11 +41,14 @@
             },
             plotOptions: {
                 column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0,
                     color: '#C95D63',
                     dataLabels: {
-                        enabled: 'true',
+                        enabled: true,
+                        crop: false,
+                        overflow: 'allow',
+                        allowOverlap: true,
+                        rotation: 270,
+                        y: -35,
                         format: '{point.y:.2f} hPa'
                     }
                 }

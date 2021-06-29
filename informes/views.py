@@ -35,7 +35,9 @@ def get_img_temperatura(dates):
 
         options = json.dumps({
             'chart': {
-                'type': 'column'
+                'type': 'column',
+                'marginTop': 75,
+                'marginRight': 50
             },
             'credits': {
                 'text': ''
@@ -55,11 +57,14 @@ def get_img_temperatura(dates):
             },
             'plotOptions': {
                 'column': {
-                    'pointPadding': 0.2,
-                    'borderWidth': 0,
                     'color': '#717EC3',
                     'dataLabels': {
-                        'enabled': 'true',
+                        'enabled': True,
+                        'crop': False,
+                        'overflow': 'allow',
+                        'allowOverlap': True,
+                        'rotation': 270,
+                        'y': -35,
                         'format': '{point.y:.2f} °C'
                     }
                 }
@@ -92,7 +97,9 @@ def get_img_humedad(dates):
 
         options = json.dumps({
             'chart': {
-                'type': 'column'
+                'type': 'column',
+                'marginTop': 75,
+                'marginRight': 50
             },
             'credits': {
                 'text': ''
@@ -112,11 +119,15 @@ def get_img_humedad(dates):
             },
             'plotOptions': {
                 'column': {
-                    'pointPadding': 0.2,
-                    'borderWidth': 0,
+
                     'color': '#AE8799',
                     'dataLabels': {
-                        'enabled': 'true',
+                        'enabled': True,
+                        'crop': False,
+                        'overflow': 'allow',
+                        'allowOverlap': True,
+                        'rotation': 270,
+                        'y': -35,
                         'format': '{point.y:.2f} %'
                     }
                 }
@@ -148,7 +159,9 @@ def get_img_presion(dates):
 
         options = json.dumps({
             'chart': {
-                'type': 'column'
+                'type': 'column',
+                'marginTop': 75,
+                'marginRight': 50
             },
             'credits': {
                 'text': ''
@@ -168,11 +181,15 @@ def get_img_presion(dates):
             },
             'plotOptions': {
                 'column': {
-                    'pointPadding': 0.2,
-                    'borderWidth': 0,
+
                     'color': '#C95D63',
                     'dataLabels': {
-                        'enabled': 'true',
+                        'enabled': True,
+                        'crop': False,
+                        'overflow': 'allow',
+                        'allowOverlap': True,
+                        'rotation': 270,
+                        'y': -35,
                         'format': '{point.y:.2f} hPa'
                     }
                 }
@@ -205,7 +222,9 @@ def get_img_co2(dates):
 
         options = json.dumps({
             'chart': {
-                'type': 'column'
+                'type': 'column',
+                'marginTop': 75,
+                'marginRight': 50
             },
             'credits': {
                 'text': ''
@@ -225,11 +244,14 @@ def get_img_co2(dates):
             },
             'plotOptions': {
                 'column': {
-                    'pointPadding': 0.2,
-                    'borderWidth': 0,
                     'color': '#EE8434',
                     'dataLabels': {
-                        'enabled': 'true',
+                        'enabled': True,
+                        'crop': False,
+                        'overflow': 'allow',
+                        'allowOverlap': True,
+                        'rotation': 270,
+                        'y': -35,
                         'format': '{point.y:.2f} PPM'
                     }
                 }
