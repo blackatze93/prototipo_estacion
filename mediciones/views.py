@@ -1,20 +1,18 @@
 from django.shortcuts import render
 from mediciones.models import Medida
+from prototipo_estacion.utils import get_dates
 from datetime import datetime
+import pytz
 
 
 def mediciones(request):
     if request.method == 'POST':
-        dates = request.POST['dates'].split()
-        min_date_str = dates[0].split('/')
-        max_date_str = dates[2].split('/')
+        dates = get_dates(request.POST['dates'].split())
 
-        min_date = datetime(int(min_date_str[2]), int(min_date_str[1]), int(min_date_str[0]))
-        max_date = datetime(int(max_date_str[2]), int(max_date_str[1]), int(max_date_str[0]), 23, 59, 59, 999999)
+        medidas = Medida.objects.filter(fecha__gte=dates['min_date'], fecha__lte=dates['max_date']).order_by('-fecha')
 
-        medidas_filtered = Medida.objects.filter(fecha__gte=min_date, fecha__lte=max_date)
-
-        return render(request, 'mediciones/index.html', {'medidas': medidas_filtered, 'dates': request.POST['dates']})
+        return render(request, 'mediciones/index.html', {'medidas': medidas, 'dates': request.POST['dates']})
     else:
-        medidas = Medida.objects.all()
+        medidas = Medida.objects.filter(fecha__gte=datetime.now(pytz.timezone('America/Bogota')).date()).order_by(
+            '-fecha')
         return render(request, 'mediciones/index.html', {'medidas': medidas})

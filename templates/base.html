@@ -1,16 +1,17 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+          integrity="sha256-hHKA3d/HttC8OW3Sl093W8DoZudhHJDj++kZYo6MLzA=" crossorigin="anonymous">
 
-    {% load static %}
-
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.css"
+          integrity="sha256-lP22bsj+dImBpPIJD99KKgo9vlrOLmXEzkbpXWkr2sc=" crossorigin="anonymous">
 
     {# Block for adding more head stylesheets #}
     {% block head_stylesheets %}{% endblock %}
@@ -22,57 +23,130 @@
 </head>
 <body>
 <div class="container my-1">
-    <nav class="navbar navbar-expand-md navbar-light bg-light rounded">
-        <div class="container">
-            <a class="navbar-brand" href="#">Estación Meteorológica</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar"
-                    aria-controls="main-navbar" aria-expanded="false" aria-label="Alternar navegación">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    {% block nav %}
+        <nav class="navbar navbar-expand-md navbar-light bg-light rounded">
+            <div class="container">
+                <a class="navbar-brand" href="#">Estación Meteorológica</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar"
+                        aria-controls="main-navbar" aria-expanded="false" aria-label="Alternar navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse justify-content-end" id="main-navbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/mediciones/' %}active{% endif %}"
-                           href="{% url 'mediciones' %}">Mediciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Gráficos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Informes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tienda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-                </ul>
+                <div class="collapse navbar-collapse justify-content-end" id="main-navbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/mediciones/' %}active{% endif %}"
+                               href="{% url 'mediciones' %}">Mediciones</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {% if '/graficos/' in request.path %}active{% endif %}"
+                               href="#" id="graficos" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Gráficos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="graficos">
+                                <li>
+                                    <a class="dropdown-item {% if request.path == '/graficos/presion/' %}active{% endif %}"
+                                       href="{% url 'presion' %}">Presión</a></li>
+                                <li>
+                                    <a class="dropdown-item {% if request.path == '/graficos/temperatura/' %}active{% endif %}"
+                                       href="{% url 'temperatura' %}">Temperatura</a></li>
+                                <li>
+                                    <a class="dropdown-item {% if request.path == '/graficos/humedad/' %}active{% endif %}"
+                                       href="{% url 'humedad' %}">Humedad</a></li>
+                                <li><a class="dropdown-item {% if request.path == '/graficos/co2/' %}active{% endif %}"
+                                       href="{% url 'co2' %}">CO2 PPM</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if '/informes/' in request.path %}active{% endif %}"
+                               href="{% url 'informes' %}">Informes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if '/blog/' in request.path %}active{% endif %}"
+                               href="{% url 'blog' %}">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/contacto/' %}active{% endif %}"
+                               href="{% url 'contacto' %}">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    {% endblock %}
     <main role="main" class="my-1 rounded bg-light px-4 py-4">
         {% block content %}{% endblock %}
     </main>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
-        integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"
+        integrity="sha256-c95CVJWVMOTR2b7FhjeRhPlrSVPaz5zV5eK917/s7vc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
-        integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.js"
+        integrity="sha256-iOVs1FytPbiP3HcnhtFMzo0MwYebwD5OVr6Rnf2a0ik=" crossorigin="anonymous"></script>
 
 {# Block for adding more javascript #}
+<script>
+    $(document).ready(function () {
+        $('#dates').daterangepicker({
+            "locale": {
+                "format": "DD/MM/YYYY",
+                "separator": " - ",
+                "applyLabel": "Aplicar",
+                "cancelLabel": "Cancelar",
+                "fromLabel": "From",
+                "toLabel": "To",
+                "customRangeLabel": "Personalizado",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "Do",
+                    "Lu",
+                    "Ma",
+                    "Mi",
+                    "Ju",
+                    "Vi",
+                    "Sá"
+                ],
+                "monthNames": [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                    "Octubre",
+                    "Noviembre",
+                    "Diciembre"
+                ],
+                "firstDay": 1
+            },
+            "showDropdowns": true,
+            "opens": "center",
+            "autoApply": true,
+            ranges: {
+                'Hoy': [moment(), moment()],
+                'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
+                'Últimos 30 días': [moment().subtract(29, 'days'), moment()],
+                'Este mes': [moment().startOf('month'), moment().endOf('month')],
+                'Mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+        });
+    });
+</script>
 {% block body_javascript %}{% endblock %}
 </body>
 </html>

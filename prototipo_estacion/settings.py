@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -18,10 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&oo^y_&wq2vq&x_^0l*kw5(51i#wc8!b*n^b3#d6vlaq493@8='
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '&oo^y_&wq2vq&x_^0l*kw5(51i#wc8!b*n^b3#d6vlaq493@8=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = ['*']
 
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'mediciones',
     'graficos',
     'informes',
+    'blog',
+    'django_summernote',
+    'gdstorage',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'prototipo_estacion.urls'
@@ -54,8 +59,7 @@ ROOT_URLCONF = 'prototipo_estacion.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,7 +82,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'mediciones_prototipo',
         "CLIENT": {
-            "host": "mongodb+srv://andress:sistemas2019@cluster0.wkr6c.mongodb.net/mediciones_prototipo?retryWrites=true&w=majority",
+            "host": os.environ.get('MONGODB_HOST'),
         },
     }
 }
@@ -115,11 +119,24 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
 
-# Add these new lines
-STATICFILES_DIRS = (
-    BASE_DIR / "static",
-)
+# Using Google Drive as File Storage System
+
+DEFAULT_FILE_STORAGE = 'gdstorage.storage.GoogleDriveStorage'
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = None
+
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+SUMMERNOTE_THEME = 'bs4'

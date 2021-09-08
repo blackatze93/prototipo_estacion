@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ object.titulo }} - Blog{% endblock %}
+
+{% block content %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4 class="card-title">{{ object.titulo }}</h4>
+                <p class="card-text text-muted h6">{{ post.autor }} | {{ post.creado }}</p>
+                <p class="card-text">{{ object.contenido | safe }}</p>
+                <a href="{% url 'blog' %}" class="btn btn-primary">Volver &#8701;</a>
+            </div>
+        </div>
+
+{% endblock %}

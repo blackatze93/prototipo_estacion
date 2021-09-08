@@ -20,6 +20,10 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('contacto/', views.contacto, name='contacto'),
     path('mediciones/', include('mediciones.urls')),
+    path('graficos/', include('graficos.urls')),
+    path('informes/', include('informes.urls')),
+    path('blog/', include('blog.urls')),
+    path('summernote/', include('django_summernote.urls'))
 ]
-

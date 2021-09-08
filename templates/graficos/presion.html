@@ -1,0 +1,62 @@
+{% extends 'graficos/base_graficos.html' %}
+
+{% block page_title %}Gráfico de Presión{% endblock %}
+
+{% block body_javascript %}
+    {{ block.super }}
+
+    <script>
+        _categories = {{fechas|safe}};
+        _values = {{presiones|safe}};
+
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column',
+                marginTop: 75,
+                marginRight: 50
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: 'Presión por fecha'
+            },
+            xAxis: {
+                categories: _categories,
+                crosshair: true,
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Presión'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.2f} hPa</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    color: '#C95D63',
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        overflow: 'allow',
+                        allowOverlap: true,
+                        rotation: 270,
+                        y: -35,
+                        format: '{point.y:.2f} hPa'
+                    }
+                }
+            },
+            series: [{
+                name: 'Presión',
+                data: _values
+            }]
+        });
+    </script>
+{% endblock %}

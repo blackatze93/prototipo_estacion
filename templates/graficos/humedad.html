@@ -1,0 +1,62 @@
+{% extends 'graficos/base_graficos.html' %}
+
+{% block page_title %}Gráfico de Humedad{% endblock %}
+
+{% block body_javascript %}
+    {{ block.super }}
+
+    <script>
+        _categories = {{fechas|safe}};
+        _values = {{humedades|safe}};
+
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column',
+                marginTop: 75,
+                marginRight: 50
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: 'Humedad por fecha'
+            },
+            xAxis: {
+                categories: _categories,
+                crosshair: true,
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Humedad'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.2f} %</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    color: '#AE8799',
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        overflow: 'allow',
+                        allowOverlap: true,
+                        rotation: 270,
+                        y: -35,
+                        format: '{point.y:.2f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'Humedad',
+                data: _values
+            }]
+        });
+    </script>
+{% endblock %}

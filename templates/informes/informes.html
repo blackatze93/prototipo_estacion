@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head_stylesheets %}
+    <link rel="stylesheet" href="{% static 'css/printjs/print.min.css' %}"/>
+{% endblock %}
+
+{% block page_title %}Informe Detallado{% endblock %}
+
+{% block content %}
+    <div id="informe" class="text-center m-4">
+        <div id="cabecera" class="h4">
+            <img height="120em" src="https://www.udistrital.edu.co/themes/custom/versh/logo.png" alt="Logo UD"><br>
+            PROTOTIPO DE ESTACIÓN METEOTEOROLÓGICA<br>
+            INFORME DETALLADO DE PROMEDIO DE FACTORES AMBIENTALES<br><br>
+            <div class="d-flex justify-content-between">
+                {% load tz %}
+                {% timezone "America/Bogota" %}
+
+                <div class="float-left">Rango de Consulta: {{ dates.min_date|date:'d/m/Y' }}
+                    - {{ dates.max_date|date:'d/m/Y' }}</div>
+                <div class="float-right">Fecha de Consulta: {% now "d/m/Y - H:i" %}</div>
+                {% endtimezone %}
+            </div>
+        </div>
+        <br>
+        <div id="contenido">
+            <div id="graficos">
+                <h4>INFORME DE GRÁFICAS</h4><br>
+                <img width="680pt" src="{{ img_temperatura }}" class="mb-4" alt="Gráfico Temperatura">
+                <img width="680pt" src="{{ img_humedad }}" class="mb-4" alt="Gráfico Humedad">
+                <img width="680p" src="{{ img_presion }}" class="mb-4" alt="Gráfico Presión">
+                <img width="680pt" src="{{ img_co2 }}" class="mb-4" alt="Gráfico CO2">
+            </div>
+            <div id="tabla_datos" >
+                <h4>TABLA DE DATOS</h4>
+                <table class="table" aria-label="Tabla de Datos">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Presión</th>
+                        <th scope="col">Humedad</th>
+                        <th scope="col">Temperatura</th>
+                        <th scope="col">CO2 PPM</th>
+                        <th scope="col">Ubicación</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for medida in medidas %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ medida.fecha }}</td>
+                            <td>{{ medida.presion }}</td>
+                            <td>{{ medida.humedad }}</td>
+                            <td>{{ medida.temperatura }}</td>
+                            <td>{{ medida.co2_ppm }}</td>
+                            <td>
+                                <a href="https://www.openstreetmap.org/?mlat={{ medida.latitud|stringformat:"f" }}&mlon={{ medida.longitud|stringformat:"f" }}&zoom=15"
+                                   target="_blank">Ver ubicación</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_javascript %}
+    <script src="{% static 'js/printjs/print.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            printJS({
+                printable: 'informe',
+                type: 'html',
+                css: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css',
+            })
+        });
+    </script>
+{% endblock %}
